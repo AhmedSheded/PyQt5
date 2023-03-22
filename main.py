@@ -2,20 +2,33 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
 
+class MyWindow(QMainWindow):
+    def __init__(self):
+        super(MyWindow, self).__init__()
+        self.setGeometry(110, 110, 500, 500)
+        self.setWindowTitle('sheded')
+        self.initUI()
+
+    def initUI(self):
+        self.label = QtWidgets.QLabel(self)
+        self.label.setText('label')
+        self.label.move(50, 50)
+
+        self.b1 = QtWidgets.QPushButton(self)
+        self.b1.setText('click me')
+        self.b1.clicked.connect(self.clicked)
+
+    def clicked(self):
+        self.label.setText('you pressed the button')
+        self.update()
+
+    def update(self):
+        self.label.adjustSize()
+
+
 def window():
     app = QApplication(sys.argv)
-    win = QMainWindow()
-    win.setGeometry(110, 110, 500, 500)
-    win.setWindowTitle('sheded')
-
-    label = QtWidgets.QLabel(win)
-    label.setText('label')
-    label.move(50, 50)
-
-    b1 = QtWidgets.QPushButton(win)
-    b1.setText('click me')
-
-
+    win = MyWindow()
     win.show()
     sys.exit(app.exec_())
 
